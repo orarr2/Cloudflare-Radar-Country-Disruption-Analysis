@@ -1,0 +1,11 @@
+# Secrets — never commit API tokens
+.env
+*.token
+secrets.*
+
+# Jupyter / Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+.venv/
+venv/
