@@ -1,0 +1,30 @@
+# Secrets
+.env
+*.token
+credentials.json
+
+# Runtime state from monitor.py
+monitor_state*.json
+
+# Notebook-generated output figures
+output_fig_*.png
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
