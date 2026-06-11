@@ -16,6 +16,7 @@ civil unrest.
 |---|---|
 | `internet_disruption_analysis.ipynb` | Interactive analysis: time series, plots, anomaly detector, summary report. |
 | `monitor.py` | Headless daily-runnable script that diffs new disruption windows against a JSON state file (suitable for cron + alerting). |
+| `.env.example` | Template for your Cloudflare API token + optional defaults. Copy to `.env` and fill in your own credentials. |
 
 ## What the notebook does
 
@@ -34,17 +35,42 @@ civil unrest.
 Requires Python 3.9+.
 
 ```bash
-pip install requests pandas matplotlib jupyter
-
-# 1. Get a Cloudflare API token with the Radar read permission:
-#    https://dash.cloudflare.com/profile/api-tokens
-# 2. Export it (Linux/macOS):
-export CLOUDFLARE_API_TOKEN="your_token_here"
-# Or on Windows PowerShell:
-$env:CLOUDFLARE_API_TOKEN = "your_token_here"
+pip install requests pandas matplotlib jupyter python-dotenv
 ```
 
-**Never commit your token.** It is git-ignored via `.gitignore`.
+**Bring your own Cloudflare API token.** Create one (with the **Radar Read**
+permission only) at <https://dash.cloudflare.com/profile/api-tokens>.
+
+The repo ships with a `.env.example` template. Copy it and fill in your token:
+
+```bash
+# macOS / Linux
+cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
+```
+
+Open `.env` in an editor and set:
+
+```dotenv
+CLOUDFLARE_API_TOKEN=your_token_here
+CFR_LOCATION=                 # optional — leave blank to be prompted
+CFR_DATE_RANGE=               # optional — leave blank for 28d
+```
+
+The notebook and `monitor.py` both auto-load `.env` via `python-dotenv`. The
+`.env` file itself is git-ignored, so your token never gets committed.
+
+Alternatively, export the variables yourself instead of using `.env`:
+
+```bash
+export CLOUDFLARE_API_TOKEN="your_token_here"        # macOS / Linux
+$env:CLOUDFLARE_API_TOKEN = "your_token_here"        # Windows PowerShell
+```
+
+**Never commit your token.** If you ever do by accident, rotate it immediately at
+the Cloudflare token page above.
 
 ## Run the notebook
 

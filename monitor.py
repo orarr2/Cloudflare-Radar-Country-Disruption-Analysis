@@ -28,6 +28,14 @@ from typing import Iterable
 import pandas as pd
 import requests
 
+# Auto-load a sibling .env file when python-dotenv is available, so users only
+# have to fill in .env once instead of exporting env vars in every shell.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).with_name(".env"))
+except ImportError:
+    pass
+
 BASE_URL = "https://api.cloudflare.com/client/v4/radar"
 
 WINDOW = 24        # 1-day rolling baseline at 1h resolution (annotation filter cleans false positives)
